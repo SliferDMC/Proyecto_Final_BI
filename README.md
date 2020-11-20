@@ -3,3 +3,6 @@ En este repositorio se almacenara todo el código y archivos necesarios para cul
 
 API Seleccionada: PokéApi
 Endpoints: name, abilities, moves, stats, type and maybe others
+Lenguage: Python
+library: request, pandas, json
+Helps: Tutorials
