@@ -8,5 +8,5 @@ En este repositorio se almacenara todo el código y archivos necesarios para cul
 - library: request, pandas, json
 - Helps: Tutorials
 - Repository: GitHub
-- Names: Miguel Angel Rodriguez Novoa:+1: y Daniel Vargas Pelaez:shipit:
+- Names: Miguel Angel Rodriguez Novoa :octocat: y Daniel Vargas Pelaez:shipit::black_joker::dragon_face::dragon:
 
