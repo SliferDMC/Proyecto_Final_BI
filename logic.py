@@ -1,0 +1,1 @@
+print('AWS Hola mundo con Python')
