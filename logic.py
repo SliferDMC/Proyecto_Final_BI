@@ -4,7 +4,7 @@ import boto3
 import json
 import os
 
-def guardarJson(carpeta, nombre, cantidad):
+def guardarJson2(carpeta, nombre, cantidad, inicial, archivoN):
     # Consulta  a la base de datos
     url = 'https://pokeapi.co/api/v2/'
     response = requests.get(url+nombre+'?limit='+str(cantidad)+'&offset=0') 
@@ -13,8 +13,29 @@ def guardarJson(carpeta, nombre, cantidad):
 
     dir = 'D:/Pruebas'  # También es válido 'C:\\Pruebas' o r'C:\Pruebas'
 
-    with open(os.path.join(dir+'/'+carpeta, nombre+'.json'), 'w') as file:
+    with open(os.path.join(dir+'/Listas/'+carpeta, archivoN+'.json'), 'w') as file:
          json.dump(r, file)
+
+def guardarJson(carpeta, nombre, cantidad):
+    guardarJson2(carpeta, nombre, cantidad, 0, nombre)
+
+def guardarJsonDatos(carpeta, nombre, cantidad, inicio):
+    url = 'https://pokeapi.co/api/v2/'
+    response = requests.get(url+nombre+'/'+str(inicio)) 
+    #Conversion a json, DataFrame y guardado en formato csv r= response.json()
+    for i in range(inicio,cantidad+1): 
+        # Consulta  a la base de datos
+        response = requests.get(url+nombre+'/'+str(i)) 
+        #Conversion a json, DataFrame y guardado en formato csv r= response.json()
+        r= response.json()
+        dir = 'D:/Pruebas'  # También es válido 'C:\\Pruebas' o r'C:\Pruebas'
+        with open(os.path.join(dir+'/Datos/'+carpeta, str(i)+'-'+r['name']+'.json'), 'w') as file:
+             json.dump(r, file)
+
+    #r = res.json()
+
+    
+        
 
 #credenciales SliferDMC
 access_key  = 'AKIAQTCJUV7ZS32U2MP2'
@@ -25,6 +46,10 @@ access_key_D = 'AKIAQTCJUV7Z4JQV6GPY'
 secret_access_key_D = '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'
 
 # ----------------------------------------- Pokemon ----------------------------------------------------- #
+# habilidades
+guardarJson('Pokemon', 'ability', 293)
+# Caracteristicas de los pokemon
+guardarJson('Pokemon', 'characteristic', 30)
 # grupo huevo
 guardarJson('Pokemon', 'egg-group', 15)
 # genero
@@ -34,9 +59,9 @@ guardarJson('Pokemon', 'growth-rate', 6)
 # naturaleza
 guardarJson('Pokemon', 'nature', 25)
 # estadisticas de pokeathlon
-guardarJson('Pokemon', 'pokeathlon-stat', 1050)
+guardarJson('Pokemon', 'pokeathlon-stat', 5)
 # pokemon
-guardarJson('Pokemon', 'pokemon', 1050)
+guardarJson('Pokemon', 'pokemon', 1117)
 # coles de los pokemon
 guardarJson('Pokemon', 'pokemon-color', 10)
 # figuras de los pokemon
@@ -129,7 +154,27 @@ guardarJson('Juegos', 'pokedex', 24)
 guardarJson('Juegos', 'version', 34)
 # Versiones Agrupadas de los juegos
 guardarJson('Juegos', 'version-group', 20)
+# idioma
+guardarJson('Juegos', 'language', 13)
 
+# ----------------------------------------- Filtros ----------------------------------------------------- #
+# pokemon
+guardarJson2('zFiltros', 'pokemon', 893, 0, 'pokemon-no-transf')
+guardarJson2('zFiltros', 'pokemon', 1117, 894, 'pokemon-transf')
+guardarJson2('zFiltros', 'pokemon', 1117, 894, 'pokemon-transf')
 
+# --------------------------------------- GuardarDatos --------------------------------------------------- #
+guardarJsonDatos('Pokemon', 'pokemon', 893, 1)
+guardarJsonDatos('Pokemon-Transf', 'pokemon', 10219, 10001)
+guardarJsonDatos('Objetos', 'item', 666, 1)
+guardarJsonDatos('Objetos', 'item', 671, 668)
+guardarJsonDatos('Objetos', 'item', 679, 673)
+guardarJsonDatos('Objetos', 'item', 749, 681)
+guardarJsonDatos('Objetos', 'item', 765, 760)
+guardarJsonDatos('Objetos', 'item', 770, 768)
+#guardarJsonDatos('Objetos', 'item', 954, 768)
+guardarJsonDatos('Movimientos', 'move', 784, 1)
+guardarJsonDatos('Movimientos', 'move', 796, 786)
+guardarJsonDatos('Movimientos', 'move', 10018, 10001)
 
 print('Datos Guardados')
