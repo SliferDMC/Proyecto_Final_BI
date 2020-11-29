@@ -2,12 +2,11 @@
 import requests
 import boto3
 import json
-import os
 
 # Escribe los Datos en un archivo Json en la ruta especificada
 def EscribirJson(aJson, ruta, nArchivo):
     s = json.dumps(aJson, indent=4)
-    dir = 'D:/Pruebas/'+ruta  # También es válido 'C:\\Pruebas' o r'C:\Pruebas'
+    dir = '/home/ubuntu/Pruebas/'+ruta  # También es válido 'C:\\Pruebas' o r'C:\Pruebas'
     f = open(dir+nArchivo+'.json', "w")
     f.write(s)
     f.close()
@@ -137,7 +136,8 @@ Lfiltro=obtenerListaI('type', 20)
 tiposMV=filtroDefinitivo(listaMv,'type',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Tipos/movimientos-Type-'+tipo['name'])
+        #separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Tipos/movimientos-Type-'+tipo['name'])
+        EscribirArregloJson(tiposMV[tipo['name']], 'Datos/', 'Movimientos/Tipos/movimientos-Type-'+tipo['name'])
         num = num+1
 
 #Filtra los movientos separandolos por el objetivo en el que tienen efecto
@@ -145,7 +145,8 @@ Lfiltro=obtenerListaI('move-target', 14)
 tiposMV=filtroDefinitivo(listaMv,'target',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Objetivo/movimientos-Type-'+tipo['name'])
+        #separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Objetivo/movimientos-Type-'+tipo['name'])
+        EscribirArregloJson(tiposMV[tipo['name']], 'Datos/', 'Movimientos/Objetivo/movimientos-Type-'+tipo['name'])
         num = num+1
 
 #Filtra los movientos separandolos por su generacion de debut
@@ -153,7 +154,8 @@ Lfiltro=obtenerListaI('generation', 8)
 tiposMV=filtroDefinitivo(listaMv,'generation',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Generacion/movimientos-Gen-'+tipo['name'])
+        #separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Generacion/movimientos-Gen-'+tipo['name'])
+        EscribirArregloJson(tiposMV[tipo['name']], 'Datos/', 'Movimientos/Generacion/movimientos-Gen-'+tipo['name'])
         num = num+1
 
 #Filtra los movientos separandolos por el estado alterado que inflingen
@@ -161,7 +163,8 @@ Lfiltro=obtenerListaI('move-ailment', 14)
 tiposMV=filtro2Busquedas(listaMv,'meta','ailment',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name'])
+        #separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name'])
+        EscribirArregloJson(tiposMV[tipo['name']], 'Datos/','Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name'])
         num = num+1
 
 #Filtra los movientos separandolos por la categoria a la que pertencen
@@ -169,7 +172,8 @@ Lfiltro=obtenerListaI('move-category', 14)
 tiposMV=filtro2Busquedas(listaMv,'meta','category',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Categoria/movimientos-Cat-'+tipo['name'])
+        #separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/Categoria/movimientos-Cat-'+tipo['name'])
+        EscribirArregloJson(tiposMV[tipo['name']], 'Datos/','Movimientos/Categoria/movimientos-Cat-'+tipo['name'])
         num = num+1
 
 #Filtra los movientos separandolos por su el tipo de daño que realizan
@@ -177,8 +181,10 @@ Lfiltro=obtenerListaI('move-damage-class', 14)
 tiposMV=filtroDefinitivo(listaMv,'damage_class',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/ClaseDanio/movimientos-damage-'+tipo['name'])
+        #separar100JsonDatos(tiposMV[tipo['name']],'Movimientos/ClaseDanio/movimientos-damage-'+tipo['name'])
+        EscribirArregloJson(tiposMV[tipo['name']], 'Datos/','Movimientos/ClaseDanio/movimientos-damage-'+tipo['name'])
         num = num+1
+
 
 # ------------------------------------------------- Pokemon ------------------------------------------------- #
 
@@ -197,7 +203,8 @@ Lfiltro=obtenerListaI('type', 20)
 tiposPT=filtrarListaDef(listaP,'types','type',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
+        #separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
+        EscribirArregloJson(tiposPT[tipo['name']], 'Datos/','Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
         num = num+1
 
 #Filtra los pokemon separandolos por las habilidades que tienen
@@ -205,7 +212,8 @@ Lfiltro=obtenerListaI('ability', 299)
 tiposPT=filtrarListaDef(listaP,'abilities','ability',Lfiltro)
 num=1
 for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
+        #separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
+        EscribirArregloJson(tiposPT[tipo['name']], 'Datos/','Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
         num = num+1
 
 print('Datos Guardados')
@@ -219,3 +227,126 @@ for tipo in Lfiltro['results']:
         separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Movimientos/Pokemon-Mv-'+tipo['name'])
         num = num+1
 """
+
+#################################Subida de datos al Bucket##########################################################
+
+access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
+secret_access_key = '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'
+
+client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
+name_bucket = 'bucket1-desarrollo'
+
+# Habilidades
+for i in (1,4):
+    ruta = '/home/ubuntu/Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Locaciones
+for i in (1,9):
+    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Locaciones/Areas
+for i in (1,8):
+    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos
+for i in (1,10):
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos/Categoria
+Lfiltro=obtenerListaI('move-category', 14)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Categoria/movimientos-Cat-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/Categoria/movimientos-Cat-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos/ClaseDanio
+Lfiltro=obtenerListaI('move-damage-class', 14)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/ClaseDanio/movimientos-damage-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/ClaseDanio/movimientos-damage-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos/EstadoAlterado
+Lfiltro=obtenerListaI('move-ailment', 14)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos/Generacion
+Lfiltro=obtenerListaI('generation', 8)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Generacion/movimientos-Gen-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/Generacion/movimientos-Gen-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos/Objetivo
+Lfiltro=obtenerListaI('move-target', 14)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Objetivo/movimientos-Type-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/Objetivo/movimientos-Type-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Movimientos/Tipos
+Lfiltro=obtenerListaI('type', 20)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Objetos
+for i in (1,11):
+    ruta = '/home/ubuntu/Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Pokemon
+for i in (1,13):
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Pokemon/CadenasEvolutivas
+for i in (1,6):
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Pokemon/Especies
+for i in (1,10):
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Pokemon/Habilidades
+Lfiltro=obtenerListaI('ability', 299)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Habilidades/Pokemon-Ability-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Pokemon/Habilidades/Pokemon-Ability-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Pokemon/Tipos
+Lfiltro=obtenerListaI('type', 20)
+for tipo in Lfiltro['results']:
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Tipos/Pokemon-Type-'+tipo['name']+'.json'
+    save_route = 'Pruebas/Datos/Pokemon/Tipos/Pokemon-Type-'+tipo['name']+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+# Pokemon-Transf
+for i in (1,4):
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
+
+for i in (1,10):
+    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
