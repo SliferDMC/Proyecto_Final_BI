@@ -3,6 +3,13 @@ import requests
 import boto3
 import json
 
+#Credenciales de ususario
+access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
+secret_access_key = '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'
+
+client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
+name_bucket = 'bucket1-desarrollo'
+
 # Escribe los Datos en un archivo Json en la ruta especificada
 def EscribirJson(aJson, ruta, nArchivo):
     s = json.dumps(aJson, indent=4)
@@ -96,15 +103,22 @@ def guardarJsonDatosUrL(nombre, cantidad, inicio):
     r=[]
     for i in listaNombres['results']: 
         # Consulta  a la base de datos
-        response = requests.get(i['url']) 
-        #Conversion a json, DataFrame y guardado en formato csv r= response.json()
-        r.append(response.json())
+        try:
+            response = requests.get(i['url']) 
+            r.append(response.json())
+        except:
+            ""
     return r
 
 # -------------------------------------- Busquedas variadas sin filtros ------------------------------------- #    
 #busca y guarda todas las habilidades existentes
 listaAb=guardarJsonDatosUrL('ability', 293, 1)
 separar100JsonDatos(listaAb,'Habilidades/Habilidades')
+# Habilidades
+for i in range(1,4):
+    ruta = '/home/ubuntu/Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
 
 #busca y guarda todas las Cadenas Evolutivas de los pokemon
 listaPCh=guardarJsonDatosUrL('evolution-chain', 467, 1)
@@ -113,14 +127,29 @@ separar100JsonDatos(listaPCh,'Pokemon/CadenasEvolutivas/Evoluciones')
 #busca y guarda todas las Localizaciones de las Areas en las que se pueden encontrar pokemon
 listaLA=guardarJsonDatosUrL('location-area', 683, 1)
 separar100JsonDatos(listaLA,'Locaciones/Areas/Areas')
+# Locaciones/Areas
+for i in range(1,8):
+    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
 
 #busca y guarda todas las Localizaciones en las que se pueden encontrar pokemon
 listaL=guardarJsonDatosUrL('location', 781, 1)
 separar100JsonDatos(listaL,'Locaciones/Locaciones')
+# Locaciones
+for i in range(1,9):
+    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
 
 #busca y guarda todos los objetos que hay en los juegos
 listaIt=guardarJsonDatosUrL('item', 954, 1)
 separar100JsonDatos(listaIt,'Objetos/Objetos')
+# Objetos
+for i in range(1,11):
+    ruta = '/home/ubuntu/Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
+    save_route = 'Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
+    client.upload_file(ruta, name_bucket, save_route)
 
 #busca y guarda todas las especies de pokemon
 listaSp=guardarJsonDatosUrL('pokemon-species', 898, 1)
@@ -185,77 +214,8 @@ for tipo in Lfiltro['results']:
         EscribirArregloJson(tiposMV[tipo['name']], 'Datos/','Movimientos/ClaseDanio/movimientos-damage-'+tipo['name'])
         num = num+1
 
-
-# ------------------------------------------------- Pokemon ------------------------------------------------- #
-
-#busca y guarda todos los Pokemon separandolos en las transformaciones y no transformaciones
-listaPT=guardarJsonDatosUrL('pokemon', 1117, 899)
-separar100JsonDatos(listaPT,'Pokemon-Transf/Pokemon-Transf')
-listaPT=guardarJsonDatosUrL('pokemon', 898, 1)
-separar100JsonDatos(listaPT,'Pokemon-Transf/Pokemon-NoTransf')
-
-#busca y guarda todos los pokemon sin filtros
-listaP=guardarJsonDatosUrL('pokemon', 1117, 1)
-separar100JsonDatos(listaP,'Pokemon/Pokemon')
-
-#Filtra los pokemon separandolos por los tipos a los que perteneces
-Lfiltro=obtenerListaI('type', 20)
-tiposPT=filtrarListaDef(listaP,'types','type',Lfiltro)
-num=1
-for tipo in Lfiltro['results']:
-        #separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
-        EscribirArregloJson(tiposPT[tipo['name']], 'Datos/','Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
-        num = num+1
-
-#Filtra los pokemon separandolos por las habilidades que tienen
-Lfiltro=obtenerListaI('ability', 299)
-tiposPT=filtrarListaDef(listaP,'abilities','ability',Lfiltro)
-num=1
-for tipo in Lfiltro['results']:
-        #separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
-        EscribirArregloJson(tiposPT[tipo['name']], 'Datos/','Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
-        num = num+1
-
-print('Datos Guardados')
-
-"""
-#Filtra los pokemon separandolos por los movimientos que pueden aprender
-Lfiltro=obtenerListaI('move', 813)
-tiposPT=filtrarListaDef(listaP,'moves','move',Lfiltro)
-num=1
-for tipo in Lfiltro['results']:
-        separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Movimientos/Pokemon-Mv-'+tipo['name'])
-        num = num+1
-"""
-
-#################################Subida de datos al Bucket##########################################################
-
-access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
-secret_access_key = '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'
-
-client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
-name_bucket = 'bucket1-desarrollo'
-
-# Habilidades
-for i in (1,4):
-    ruta = '/home/ubuntu/Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
-    save_route = 'Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
-    client.upload_file(ruta, name_bucket, save_route)
-
-# Locaciones
-for i in (1,9):
-    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
-    save_route = 'Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
-    client.upload_file(ruta, name_bucket, save_route)
-
-# Locaciones/Areas
-for i in (1,8):
-    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
-    save_route = 'Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
-    client.upload_file(ruta, name_bucket, save_route)
-
 # Movimientos
-for i in (1,10):
+for i in range(1,10):
     ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
@@ -301,27 +261,50 @@ for tipo in Lfiltro['results']:
     ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
+# ------------------------------------------------- Pokemon ------------------------------------------------- #
 
-# Objetos
-for i in (1,11):
-    ruta = '/home/ubuntu/Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
-    save_route = 'Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
-    client.upload_file(ruta, name_bucket, save_route)
+#busca y guarda todos los Pokemon separandolos en las transformaciones y no transformaciones
+listaPT=guardarJsonDatosUrL('pokemon', 1117, 899)
+separar100JsonDatos(listaPT,'Pokemon-Transf/Pokemon-Transf')
+listaPT=guardarJsonDatosUrL('pokemon', 898, 1)
+separar100JsonDatos(listaPT,'Pokemon-Transf/Pokemon-NoTransf')
+
+#busca y guarda todos los pokemon sin filtros
+listaP=guardarJsonDatosUrL('pokemon', 1117, 1)
+separar100JsonDatos(listaP,'Pokemon/Pokemon')
+
+#Filtra los pokemon separandolos por los tipos a los que perteneces
+Lfiltro=obtenerListaI('type', 20)
+tiposPT=filtrarListaDef(listaP,'types','type',Lfiltro)
+num=1
+for tipo in Lfiltro['results']:
+        #separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
+        EscribirArregloJson(tiposPT[tipo['name']], 'Datos/','Pokemon/Tipos/Pokemon-Type-'+tipo['name'])
+        num = num+1
+
+#Filtra los pokemon separandolos por las habilidades que tienen
+Lfiltro=obtenerListaI('ability', 299)
+tiposPT=filtrarListaDef(listaP,'abilities','ability',Lfiltro)
+num=1
+for tipo in Lfiltro['results']:
+        #separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
+        EscribirArregloJson(tiposPT[tipo['name']], 'Datos/','Pokemon/Habilidades/Pokemon-Ability-'+tipo['name'])
+        num = num+1
 
 # Pokemon
-for i in (1,13):
+for i in range(1,13):
     ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon/CadenasEvolutivas
-for i in (1,6):
+for i in range(1,6):
     ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon/Especies
-for i in (1,10):
+for i in range(1,10):
     ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
@@ -341,12 +324,24 @@ for tipo in Lfiltro['results']:
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon-Transf
-for i in (1,4):
+for i in range(1,4):
     ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
-for i in (1,10):
+for i in range(1,10):
     ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
+
+print('Datos Guardados')
+
+"""
+#Filtra los pokemon separandolos por los movimientos que pueden aprender
+Lfiltro=obtenerListaI('move', 813)
+tiposPT=filtrarListaDef(listaP,'moves','move',Lfiltro)
+num=1
+for tipo in Lfiltro['results']:
+        separar100JsonDatos(tiposPT[tipo['name']],'Pokemon/Movimientos/Pokemon-Mv-'+tipo['name'])
+        num = num+1
+"""
