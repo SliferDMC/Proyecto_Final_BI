@@ -8,7 +8,7 @@ access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
 secret_access_key = '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'
 
 client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
-name_bucket = 'bucket1-desarrollo'
+name_bucket = 'bucket2-limpio'
 
 # Escribe los Datos en un archivo Json en la ruta especificada
 def EscribirJson(aJson, ruta, nArchivo):
@@ -261,6 +261,7 @@ for tipo in Lfiltro['results']:
     ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
+'''
 # ------------------------------------------------- Pokemon ------------------------------------------------- #
 
 #busca y guarda todos los Pokemon separandolos en las transformaciones y no transformaciones
@@ -333,7 +334,7 @@ for i in range(1,10):
     ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
-
+'''
 print('Datos Guardados')
 
 """
