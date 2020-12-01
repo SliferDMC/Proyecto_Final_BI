@@ -4,8 +4,8 @@ import boto3
 import json
 
 #Credenciales de ususario
-access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
-secret_access_key = '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'
+access_key  = 'AKIAQTCJUV7ZTLVTDFQS'
+secret_access_key = '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'
 
 client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
 name_bucket = 'bucket1-desarrollo'
