@@ -4,16 +4,16 @@ import boto3
 import json
 
 #Credenciales de ususario
-access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
-secret_access_key = '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'
+access_key  = 'AKIAQTCJUV7Z2HFDW4EW'
+secret_access_key = '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'
 
 client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
-name_bucket = 'bucket2-limpio'
+name_bucket = 'bucket1-desarrollo'
 
 # Escribe los Datos en un archivo Json en la ruta especificada
 def EscribirJson(aJson, ruta, nArchivo):
     s = json.dumps(aJson, indent=4)
-    dir = '/home/ubuntu/Pruebas/'+ruta  # También es válido 'C:\\Pruebas' o r'C:\Pruebas'
+    dir = 'D:/Pruebas/'+ruta  # También es válido 'C:\\Pruebas' o r'C:\Pruebas'
     f = open(dir+nArchivo+'.json', "w")
     f.write(s)
     f.close()
@@ -109,14 +109,14 @@ def guardarJsonDatosUrL(nombre, cantidad, inicio):
         except:
             ""
     return r
-
+'''
 # -------------------------------------- Busquedas variadas sin filtros ------------------------------------- #    
 #busca y guarda todas las habilidades existentes
 listaAb=guardarJsonDatosUrL('ability', 293, 1)
 separar100JsonDatos(listaAb,'Habilidades/Habilidades')
 # Habilidades
 for i in range(1,4):
-    ruta = '/home/ubuntu/Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Habilidades/Habilidades-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
@@ -129,7 +129,7 @@ listaLA=guardarJsonDatosUrL('location-area', 683, 1)
 separar100JsonDatos(listaLA,'Locaciones/Areas/Areas')
 # Locaciones/Areas
 for i in range(1,8):
-    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Locaciones/Areas/Areas-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
@@ -138,7 +138,7 @@ listaL=guardarJsonDatosUrL('location', 781, 1)
 separar100JsonDatos(listaL,'Locaciones/Locaciones')
 # Locaciones
 for i in range(1,9):
-    ruta = '/home/ubuntu/Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Locaciones/Locaciones-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
@@ -147,7 +147,7 @@ listaIt=guardarJsonDatosUrL('item', 954, 1)
 separar100JsonDatos(listaIt,'Objetos/Objetos')
 # Objetos
 for i in range(1,11):
-    ruta = '/home/ubuntu/Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Objetos/Objetos-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
@@ -216,49 +216,49 @@ for tipo in Lfiltro['results']:
 
 # Movimientos
 for i in range(1,10):
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Movimientos/movimientos-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Movimientos/Categoria
 Lfiltro=obtenerListaI('move-category', 14)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Categoria/movimientos-Cat-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/Categoria/movimientos-Cat-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/Categoria/movimientos-Cat-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Movimientos/ClaseDanio
 Lfiltro=obtenerListaI('move-damage-class', 14)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/ClaseDanio/movimientos-damage-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/ClaseDanio/movimientos-damage-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/ClaseDanio/movimientos-damage-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Movimientos/EstadoAlterado
 Lfiltro=obtenerListaI('move-ailment', 14)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/EstadoAlterado/movimientos-Ailment-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Movimientos/Generacion
 Lfiltro=obtenerListaI('generation', 8)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Generacion/movimientos-Gen-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/Generacion/movimientos-Gen-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/Generacion/movimientos-Gen-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Movimientos/Objetivo
 Lfiltro=obtenerListaI('move-target', 14)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Objetivo/movimientos-Type-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/Objetivo/movimientos-Type-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/Objetivo/movimientos-Type-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Movimientos/Tipos
 Lfiltro=obtenerListaI('type', 20)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Movimientos/Tipos/movimientos-Type-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 '''
@@ -294,47 +294,47 @@ for tipo in Lfiltro['results']:
 
 # Pokemon
 for i in range(1,13):
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon/Pokemon-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon/CadenasEvolutivas
 for i in range(1,6):
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon/CadenasEvolutivas/Evoluciones-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon/Especies
 for i in range(1,10):
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon/Especies/especies-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon/Habilidades
 Lfiltro=obtenerListaI('ability', 299)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Habilidades/Pokemon-Ability-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon/Habilidades/Pokemon-Ability-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Pokemon/Habilidades/Pokemon-Ability-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon/Tipos
 Lfiltro=obtenerListaI('type', 20)
 for tipo in Lfiltro['results']:
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon/Tipos/Pokemon-Type-'+tipo['name']+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon/Tipos/Pokemon-Type-'+tipo['name']+'.json'
     save_route = 'Pruebas/Datos/Pokemon/Tipos/Pokemon-Type-'+tipo['name']+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 # Pokemon-Transf
 for i in range(1,4):
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-Transf-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
 
 for i in range(1,10):
-    ruta = '/home/ubuntu/Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
+    ruta = 'D:/Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
     save_route = 'Pruebas/Datos/Pokemon-Transf/Pokemon-NoTransf-'+str(i)+'.json'
     client.upload_file(ruta, name_bucket, save_route)
-'''
+
 print('Datos Guardados')
 
 """
