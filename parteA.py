@@ -4,11 +4,6 @@ import boto3
 import json
 
 #Credenciales de ususario
-access_key  = 'AKIAQTCJUV7Z2HFDW4EW'
-secret_access_key = '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'
-
-access_key  = 'AKIAQTCJUV7ZTLVTDFQS'
-secret_access_key = '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'
 
 
 client = boto3.client('s3', aws_access_key_id = access_key, aws_secret_access_key = secret_access_key)
