@@ -4,8 +4,7 @@ import requests
 import boto3
 import json
 
-access_key  = 'AKIAQTCJUV7ZR6MRT5NN'
-secret_access_key = '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'
+
 
 # Consulta  a la base de datos
 url = 'https://pokeapi.co/api/v2/'
